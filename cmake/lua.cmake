@@ -196,8 +196,12 @@ macro ( add_lua_test _testfile )
     include ( CTest )
     find_program ( LUA NAMES lua lua.bat )
     get_filename_component ( TESTFILEABS ${_testfile} ABSOLUTE )
+    get_filename_component ( parent_name ${TESTFILEABS} DIRECTORY)
+    get_filename_component ( parent_name ${parent_name} NAME)
     get_filename_component ( TESTFILENAME ${_testfile} NAME )
     get_filename_component ( TESTFILEBASE ${_testfile} NAME_WE )
+    set(TESTFILENAME1 "${parent_name}_${TESTFILEBASE}")
+    set(TESTFILEBASE1 "${parent_name}_${TESTFILEBASE}")
 
     # Write wrapper script.
     # Note: One simple way to allow the script to find modules is
@@ -232,7 +236,7 @@ return assert(loadfile '${TESTFILEABS}')(unpack(arg))
       set ( _pre ${CMAKE_COMMAND} -E chdir "${TESTCURRENTDIRABS}" )
     endif ()
     file ( WRITE ${TESTWRAPPER} ${TESTWRAPPERSOURCE})
-    add_test ( NAME ${TESTFILEBASE} COMMAND ${_pre} ${LUA}
+    add_test ( NAME ${TESTFILEBASE1} COMMAND ${_pre} ${LUA}
                ${TESTWRAPPER} "${CMAKE_CFG_INTDIR}"
                ${_ARG_DEFAULT_ARGS} )
   endif ()

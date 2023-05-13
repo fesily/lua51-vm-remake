@@ -24,7 +24,7 @@ LUALIB_API void (luaL_setn) (lua_State *L, int t, int n);
 #endif
 
 #if defined(LUA_COMPAT_OPENLIB)
-#define luaI_openlib	luaL_openlib
+#define luaI_openlib	luaL_openluaL_openliblib
 #endif
 
 

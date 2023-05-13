@@ -193,8 +193,12 @@ add_lua_test ( test/printf.lua )
 #add_lua_test ( test/readonly.lua )
 #set_property ( TEST readonly PROPERTY PASS_REGULAR_EXPRESSION "cannot redefine global variable `y'" )
 add_lua_test ( test/sieve.lua )
-add_lua_test ( test/sort.lua )
+add_lua_test (test/sort.lua)
 #add_lua_test ( test/table.lua ) # Requires input
 add_lua_test ( test/trace-calls.lua )
 add_lua_test ( test/trace-globals.lua )
+file(GLOB_RECURSE tests_sources "test/conformance/*.lua" "luatests/*.lua")
+foreach (source ${tests_sources})
+    add_lua_test ( ${source} )
+endforeach ()
 #add_lua_test ( test/xd.lua ) # Requires input
